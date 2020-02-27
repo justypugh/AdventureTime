@@ -1,19 +1,22 @@
-const apiKey = 'ZqTk40zhb5FFd26wfUY80MBLeNA2TZ2Ug1XEB5Uq';
-const searchURL = 'https://developer.nps.gov/api/v1/parks';
 
+// formats parameters to insert into the NPS URL
 function formatQueryParams(params) {
     const queryItems = Object.keys(params)
     .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
 return queryItems.join('&');
 }
+// ////////////////////////////////////////////////
 
+// Accesses the NPS API to request a park based off of the state(s) & number of results user inputs
 function getParks(query, maxResults=10) {
+    const searchURL = 'https://developer.nps.gov/api/v1/parks';
     let queryArray = query.split(", ");
     console.log(queryArray);
     const params = {
         stateCode: queryArray,
         limit: maxResults,
-        api_key: apiKey,
+        api_key: NpsApiKey,
+        fields: ["images"]
     };
     const queryString = formatQueryParams(params)
     const url = searchURL + '?' + queryString;
@@ -32,23 +35,34 @@ function getParks(query, maxResults=10) {
         $("#js-error-message").text(`Something went wrong: ${error.message}`);
     });
 }
+// ///////////////////////////////////////////////////////////
 
+// formats the national park name from the NPS API data to be able to be used in the Google Maps API url
+function formatGoogleParams(fullName) {
+    // split the string into individual words
+    const stringName = fullName.split(" &").join("+");
+    console.log(stringName);
+    return stringName;
+};
+
+// displays the results of the search
 function displayResults(responseJson) {
     console.log(responseJson);
     $("#results-list").empty();
     for(let i = 0; i < responseJson.data.length; i++) {
+       let formattedGoogle =  formatGoogleParams(responseJson.data[i].fullName);
         $("#results-list").append(`
             <li>
                 <h2>${responseJson.data[i].fullName}</h2>
                 <p>${responseJson.data[i].description}</p>
                 <a target='_blank' href='${responseJson.data[i].url}'>Visit the website here!</a>
             </li>
-            <iframe width="600" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q=Golden%20Gate%20National%20Recreation%20Area&key=AIzaSyD8s0pdEnASwcTM6Sns0MkM33S5ZLsrRHQ" allowfullscreen></iframe>
-
+            <img src="${responseJson.data[i].images[0].url}" alt="${responseJson.data[i].images[0].altText}" />
+            <iframe width="600" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/search?q=${formattedGoogle}&key=${googleApiKey}" allowfullscreen></iframe>
         `)};
     $("#results").removeClass("hidden");    
 };
-
+// /////////////////////////////////////////////////
 
 function watchForm() {
     $('form').submit(event => {
