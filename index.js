@@ -53,12 +53,20 @@ function displayResults(responseJson) {
        let formattedGoogle =  formatGoogleParams(responseJson.data[i].fullName);
         $("#results-list").append(`
             <li>
-                <h2>${responseJson.data[i].fullName}</h2>
-                <p>${responseJson.data[i].description}</p>
+                <h2 class="name">${responseJson.data[i].fullName}</h2>
+                <h3>What are the coordinates for this place?</h3>
+                <p class="latLong">${responseJson.data[i].latLong}</p>
+                <h3>Can you tell me a little bit about it?</h3>
+                <p class="info">${responseJson.data[i].description}</p>
+                <h3>What is the weather like there?</h3>
+                <p class="info">${responseJson.data[i].weatherInfo}</p>
+                <h3>Is there a website I can visit?</h3>
                 <a target='_blank' href='${responseJson.data[i].url}'>Visit the website here!</a>
+                <br/>
+                <img src="${responseJson.data[i].images[0].url}" alt="${responseJson.data[i].images[0].altText}" />
+                <iframe width="600" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/search?q=${formattedGoogle}&key=${googleApiKey}" allowfullscreen></iframe>
             </li>
-            <img src="${responseJson.data[i].images[0].url}" alt="${responseJson.data[i].images[0].altText}" />
-            <iframe width="600" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/search?q=${formattedGoogle}&key=${googleApiKey}" allowfullscreen></iframe>
+            
         `)};
     $("#results").removeClass("hidden");    
 };
