@@ -14,6 +14,7 @@ h1, form, .results-header, .site-description  {
 }
 
 h1 {
+    font-family: 'Trade Winds';
     font-size: 50px;
 }
 
@@ -35,6 +36,7 @@ input {
     display: block;
     margin-left: auto;
     margin-right: auto;
+    background-color: tan;
 }
 
 .search:hover {
@@ -85,6 +87,7 @@ li {
 
 .name {
     text-decoration: underline;
+    font-family: 'Trade Winds';
 }
 
 a {
