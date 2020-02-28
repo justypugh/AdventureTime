@@ -6,6 +6,8 @@
 body {
     background-image: url(https://images.unsplash.com/photo-1511207538754-e8555f2bc187?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=564&q=80);
     font-size: 20px;
+    margin-left: 3px;
+    margin-right: 3px;
 }
 
 h1, form, .results-header, .site-description  {
@@ -116,6 +118,10 @@ h2, h3 {
         font-size: 40px;
     }
 
+    h2 {
+        font-size: 25px;
+    }
+
     .latLong {
         text-align: center;
     }
@@ -130,6 +136,11 @@ h2, h3 {
         padding-right: 0;
         padding-left: 0;
         width: 300px;
+    }
+
+    ul {
+        padding-left: 3px;
+        padding-right: 3px;
     }
 
 }
