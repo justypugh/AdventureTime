@@ -28,10 +28,13 @@ input {
 .search {
     height: 44px;
     width: 88px;
-    margin-top: 10px;
+    margin-top: 40px;
     font-size: 14px;
     font-weight: 800;
     cursor: pointer;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .search:hover {
@@ -44,7 +47,7 @@ input {
 }
 
 span {
-    display: block;
+    display: inline-block;
 }
 
 ul {
@@ -75,7 +78,9 @@ li {
     border: 2px solid green;
     border-radius: 30px;
     margin-top: 30px;
-    background-color: forestgreen;
+    background-color: #404040;
+    color: white;
+    filter: drop-shadow(0 0 0.75rem black);
 }
 
 .name {
@@ -83,13 +88,22 @@ li {
 }
 
 a {
-    color: white;
+    color: skyblue;
     font-weight: 800;
     margin-bottom: 10px;
 }
 
 a:hover {
     cursor: pointer;
+}
+
+.info {
+    font-size: 18px;
+    text-shadow:0 0 0.75rem black;
+}
+
+h2, h3 {
+    text-shadow:0 0 0.75rem black;
 }
 
 @media screen and (min-width: 320px) {
@@ -115,6 +129,10 @@ a:hover {
 }
 
 @media screen and (min-width: 375px) {
+    span {
+        display: block;
+    }
+    
     .latLong {
         text-align: center;
     }
@@ -143,6 +161,10 @@ a:hover {
 }
 
 @media screen and (min-width: 768px) {
+    span {
+        display: inline-block;
+    }
+    
     img, iframe {
         width: 600px;
         height: 450px;
