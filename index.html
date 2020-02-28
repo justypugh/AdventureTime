@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AdventureTime!</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <link href="https://fonts.googleapis.com/css?family=Trade+Winds&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="main.css">
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
@@ -21,7 +22,7 @@
             <input type="text" name="search-term" id="js-search-term" placeholder="ex: 'CA', or 'CA, NY'" required></span>
 
             <span><label for="max-results"> Max results:</label>
-            <input type="number" name="max-results" id="js-max-results" value="10"></span>
+            <input type="number" name="max-results" id="js-max-results" value="5" min="1"></span>
 
             <input role="button" class="search" type="submit" value="Explore!">
         </form>
