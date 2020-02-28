@@ -130,6 +130,7 @@ h2, h3 {
         text-align: left;
         line-height: 1.5;
         padding-left: 5px;
+        padding-right: 5px;
     }
     
     img, iframe {
