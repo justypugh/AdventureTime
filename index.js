@@ -54,6 +54,7 @@ function displayResults(responseJson) {
         $("#results-list").append(`
             <li>
                 <h2 class="name">${responseJson.data[i].fullName}</h2>
+                
                 <h3>What are the coordinates for this place?</h3>
                 <p class="info latLong">${responseJson.data[i].latLong}</p>
                 <h3>Can you tell me a little bit about it?</h3>

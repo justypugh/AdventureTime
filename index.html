@@ -14,10 +14,12 @@
 </head>
 <body>
     <div class="container">
-        <h1>AdventureTime!</h1>
-        <p class="site-description">Looking for adventure? Traveling somewhere? Trying to escape the city? Look no further!<br/> Search a state(s) below to find national parks, historical sites, trails, and more to explore!</p>
+        <header role="heading">
+            <h1>AdventureTime!</h1>
+            <p class="site-description">Looking for adventure? Traveling somewhere? Trying to escape the city? Look no further!<br/> Search a state(s) below to find national parks, historical sites, trails, and more to explore!</p>
+        </header>
 
-        <form id="js-form">
+        <form id="js-form" role="form">
             <span><label for="search-term">Search state(s):</label>
             <input type="text" name="search-term" id="js-search-term" placeholder="ex: 'CA', or 'CA, NY'" required></span>
 
