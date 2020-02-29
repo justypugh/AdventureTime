@@ -11,7 +11,6 @@ return queryItems.join('&');
 function getParks(query, maxResults=10) {
     const searchURL = 'https://developer.nps.gov/api/v1/parks';
     let queryArray = query.split(", ");
-    console.log(queryArray);
     const params = {
         stateCode: queryArray,
         limit: maxResults,
@@ -20,8 +19,6 @@ function getParks(query, maxResults=10) {
     };
     const queryString = formatQueryParams(params)
     const url = searchURL + '?' + queryString;
-
-    console.log(url);
 
     fetch(url)
     .then(response => {
@@ -32,7 +29,7 @@ function getParks(query, maxResults=10) {
     })
     .then(responseJson => displayResults(responseJson))
     .catch(error => {
-        $("#js-error-message").text(`Something went wrong: ${error.message}`);
+        $("#js-error-message").text(`Something went wrong: ${error.message}. Please enter a new search.`);
     });
 }
 // ///////////////////////////////////////////////////////////
@@ -41,30 +38,51 @@ function getParks(query, maxResults=10) {
 function formatGoogleParams(fullName) {
     // split the string into individual words
     const stringName = fullName.split(" &").join("+");
-    console.log(stringName);
     return stringName;
 };
 
 // displays the results of the search
 function displayResults(responseJson) {
-    console.log(responseJson);
     $("#results-list").empty();
+    if(responseJson.data.length === 0) {
+        $("#results-list").append(
+            "<div class='error-message'>Sorry, no results, please try again</div>"
+        )
+    }
     for(let i = 0; i < responseJson.data.length; i++) {
-       let formattedGoogle =  formatGoogleParams(responseJson.data[i].fullName);
+        let imageHTML;
+        let latLongString;
+        let weatherInfoString;
+        if(responseJson.data[i].images.length > 0) {
+             imageHTML = `<img src="${responseJson.data[i].images[0].url}" alt="${responseJson.data[i].images[0].altText}" />`;
+        } else {
+             imageHTML = "<div class='info'>Sorry, no image available.</div>";
+        }
+        if(responseJson.data[i].latLong) {
+            latLongString = `<p class="info latLong">${responseJson.data[i].latLong}</p>`;
+        } else {
+            latLongString = "<div class='info'>Sorry, no coordinates available.</div>";
+        }
+        if(responseJson.data[i].weatherInfo) {
+            weatherInfoString = `<p class="info">${responseJson.data[i].weatherInfo}</p>`;
+        } else {
+            weatherInfoString = "<div class='info'>Sorry, no weather data available.</div>";
+        }
+        let formattedGoogle =  formatGoogleParams(responseJson.data[i].fullName);
         $("#results-list").append(`
             <li>
                 <h2 class="name">${responseJson.data[i].fullName}</h2>
                 
                 <h3>What are the coordinates for this place?</h3>
-                <p class="info latLong">${responseJson.data[i].latLong}</p>
+                ${latLongString}
                 <h3>Can you tell me a little bit about it?</h3>
                 <p class="info">${responseJson.data[i].description}</p>
                 <h3>What is the weather like there?</h3>
-                <p class="info">${responseJson.data[i].weatherInfo}</p>
+                ${weatherInfoString}
                 <h3>Is there a website I can visit?</h3>
                 <a target='_blank' href='${responseJson.data[i].url}'>Visit the website here!</a>
                 <br/>
-                <img src="${responseJson.data[i].images[0].url}" alt="${responseJson.data[i].images[0].altText}" />
+                ${imageHTML}
                 <iframe width="600" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/search?q=${formattedGoogle}&key=${googleApiKey}" allowfullscreen></iframe>
             </li>
             

@@ -10,6 +10,13 @@ body {
     margin-right: 3px;
 }
 
+.error-message {
+    text-align: center;
+    color: red;
+    font-weight: 800;
+    font-size: 20px;
+}
+
 h1, form, .results-header, .site-description  {
     color: white;
     filter: drop-shadow(0 0 0.75rem black);
@@ -26,7 +33,7 @@ form {
 
 input {
     border-radius: 3px;
-    /* width: 75px; */
+    width: 206px;
 }
 
 .search {
